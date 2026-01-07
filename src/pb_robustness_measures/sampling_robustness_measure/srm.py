@@ -8,11 +8,6 @@ from functools import lru_cache
 
 @lru_cache(maxsize=None)
 def get_ways_tuple(s, max_c):
-    """
-    Return tuple ways[0..max_c] where ways[c] = C(s + c - 1, c).
-    Cached by (s, max_c).
-    Computed iteratively to avoid repeated comb() costs.
-    """
     if max_c < 0:
         return tuple()
     ways = [0] * (max_c + 1)

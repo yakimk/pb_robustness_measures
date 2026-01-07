@@ -69,16 +69,12 @@ def count_with_supporters_fast(n, s_list, m, K_set):
     if M_max < 0:
         return 0
 
-    # Precompute (memoized) ways polynomials for each unique s up to degree m
-    # Represent ways_i as tuple for immutability and cache friendliness
     unique_s = sorted(set(s_list))
     ways_by_s = {s: get_ways_tuple(s, m) for s in unique_s}
-    # Map project -> ways tuple
     ways = [ways_by_s[s_list[i]] for i in range(n)]
 
     total = 0
 
-    # Precompute lists of loser indices and winner indices
     losers = [j for j in range(n) if j not in K_set]
     winners = [i for i in range(n) if i in K_set]
 
@@ -88,36 +84,28 @@ def count_with_supporters_fast(n, s_list, m, K_set):
         if T_max < T_min:
             continue
 
-        # Build polynomials for losers:
-        # each loser poly is ways_j truncated to c <= M and degree limited to T_max
         polys_non_M = []
         polys_non_Mminus = []
         for j in losers:
             w = ways[j]  # tuple of length m+1
-            # Tj_M (coeffs 0..T_max) keeping only c<=M
             Tj_M = [w[c] if c <= M and c <= T_max else 0 for c in range(T_max + 1)]
             polys_non_M.append(Tj_M)
             if M == 0:
-                # all zeros for <=M-1
                 polys_non_Mminus.append([0] * (T_max + 1))
             else:
                 Tj_Mm1 = [w[c] if c <= M - 1 and c <= T_max else 0 for c in range(T_max + 1)]
                 polys_non_Mminus.append(Tj_Mm1)
 
-        # Multiply loser polynomials with balanced product tree
         poly_non_M = multiply_polys_tree(polys_non_M, T_max)
         poly_non_Mminus = multiply_polys_tree(polys_non_Mminus, T_max)
-        # poly_diff = poly_non_M - poly_non_Mminus (componentwise)
         poly_diff = [poly_non_M[t] - poly_non_Mminus[t] for t in range(T_max + 1)]
 
-        # Build winners
         polys_winners = []
         for i in winners:
             w = ways[i]
             Ri = [w[c] if c >= (M + 1) else 0 for c in range(m + 1)]
             polys_winners.append(Ri)
 
-        # mult truncated polys to deg m
         polyK = multiply_polys_tree(polys_winners, m)
 
         for T in range(T_min, T_max + 1):

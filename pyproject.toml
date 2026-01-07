@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pb-robustness-measures"   # IMPORTANT: Python package name must use hyphens
-version = "0.1.0"
+version = "0.1.1"
 description = "This library provides implementations of robustness measures for participatory budgeting election instances."
 authors = ["Kyrylo Iakymenko <yakimenko.kir@gmail.com>"]
 readme = "README.md"

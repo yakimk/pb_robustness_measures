@@ -155,6 +155,16 @@ ell = add_complement_mes(p2, inst, profile, step=1)
 print("add-complement ell:", ell)
 ```
 
+## Example calculating SRM for a real-world instance
+```python
+from pabutools import election
+from pb_robustness_measures.sampling_robustness_measure.srm import (
+    plurality_sampling_robustness_measure,
+)
+instance, profile = election.parse_pabulib("netherlands_assen_2024_.pb")
+print(plurality_sampling_robustness_measure(instance, profile, samples = 100)) # returns Fraction "# of 100 sample election, where the result does not change"/"# of all 100 sample electios"
+```
+
 ## API snapshot & important modules
 
 The tests and examples exercise the following public-facing modules (use these imports as examples):

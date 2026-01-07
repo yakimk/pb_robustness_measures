@@ -1,5 +1,0 @@
-../big_examples/poland_warszawa_2022_rembertow.pb
-Warsaw Rembertów PB 2022
-1288
-66
-935751

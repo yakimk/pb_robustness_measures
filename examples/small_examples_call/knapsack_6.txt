@@ -1,5 +1,0 @@
-../small_examples/worldwide_mechanical-turk_knapsack-6_.pb
-Worldwide Mechanical Turk Knapsack 6
-75
-10
-500000

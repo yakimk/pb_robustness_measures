@@ -1,5 +1,0 @@
-../small_examples/France_Toulouse_2022_17_-_Mirail-Universite_Reynerie_Bellefontaine.pb
-Toulouse, France, Mirail Universite Reynerie Bellefontaine 2022
-93
-10
-400000.0

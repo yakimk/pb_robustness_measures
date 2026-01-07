@@ -1,0 +1,6 @@
+plots:
+  - csv_file: "res/csv/small_examples_srm_results.csv"
+    figsize: [10, 6]
+    dpi: 200
+    output_folder: "res/srm"
+

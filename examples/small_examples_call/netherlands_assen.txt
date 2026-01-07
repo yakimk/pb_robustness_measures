@@ -1,5 +1,0 @@
-../small_examples/netherlands_assen_2024_.pb
-Assen, Netherlands PB 2024
-84
-14
-100000

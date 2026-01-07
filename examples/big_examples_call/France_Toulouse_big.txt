@@ -1,5 +1,0 @@
-../big_examples/France_Toulouse_big.pb
-Toulouse, France
-4532
-199
-8000000

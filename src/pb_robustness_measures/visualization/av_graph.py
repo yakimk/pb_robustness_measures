@@ -13,7 +13,7 @@ def av_graph(
     projects: int = 0,
     voters : int =0, 
     budget : int =0, 
-
+    save_path: str | None = None,
     ):
     """
     Given an instance produces a graph of (supperters, cost) for each project
@@ -44,7 +44,6 @@ def av_graph(
     if tie_breaking is None:
         tie_breaking = lexico_tie_breaking
 
-
     allocation = BudgetAllocation()
     # current_cost = total_cost(allocation)
     remaining = [p for p in instance if p not in allocation]
@@ -73,25 +72,22 @@ def av_graph(
         else:
             selected.append(False)
 
-    fig, ax = plt.subplots(figsize=(10,6))
+    fig, ax = plt.subplots(figsize=(9,5.5))
     colors = ['blue' if sel else 'red' for sel in selected]
     ax.scatter(supporters, costs, c=colors)
     if show_labels:
         for x, y, label in zip(supporters, costs, names):
             ax.annotate(label, (x, y), textcoords="offset points", xytext=(5,5))
 
-
     x0, x1 = supporters[0] + 1, supporters[0]
     start, end = max(x0, x1), min(x0, x1)
     ax.hlines(budget_levels[0], start, end)
-
 
     for i, y in enumerate(budget_levels):
         if i > 0:
             x0, x1 = supporters[i-1], supporters[i]
             start, end = max(x0, x1), min(x0, x1)
             ax.hlines(y, start, end)
-
 
     for i in range(len(supporters)-1):
         x = supporters[i]
@@ -100,17 +96,19 @@ def av_graph(
         bottom, top = min(y0, y1), max(y0, y1)
         ax.vlines(x, bottom, top)
 
-    ax.set_xlabel('Number of Supporters')
-    ax.set_ylabel('Project Cost')
-    if voters > 0: vote = " | Voters: " + str(voters)
-    else: vote = ""
-    if projects > 0: proj = " | Projects: " + str(projects)
-    else: proj = ""
-    if budget > 0: budg = " | Budget: " + str(budget)
-    else: budg = ""
+    ax.set_xlabel('Number of Supporters', fontsize=14)
+    ax.set_ylabel('Project Cost', fontsize=14)
+    vote = f" | Voters: {voters}" if voters > 0 else ""
+    proj = f" | Projects: {projects}" if projects > 0 else ""
+    budg = f" | Budget: {int(budget)}" if budget > 0 else ""
     if name:
-        ax.set_title('Greedy-AV outcome of ' + name  + vote+ proj + budg)
+        ax.set_title(name.replace("_", " ") + vote + proj + budg)
     else:
-        ax.set_title('Greedy-AV outcome'+ " | " + vote + proj + budg)
+        ax.set_title(vote + proj + budg)
     ax.invert_xaxis()
-    plt.show()
+    
+    if save_path:
+        plt.savefig(save_path, bbox_inches="tight")
+        plt.close(fig)
+    else:
+        plt.show()

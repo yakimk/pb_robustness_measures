@@ -10,6 +10,7 @@ packages = [{ include = "pb_robustness_measures", from = "src" }]
 python = ">=3.12,<3.13"
 pabutools = "*"
 matplotlib = "^3.10.7"
+pyyaml = "^6.0.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8"

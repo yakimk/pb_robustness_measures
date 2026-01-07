@@ -1,5 +1,0 @@
-../big_examples/netherlands_amsterdam_166_.pb
-Amsterdam Buurtbudget Kleine Wereld
-426
-52
-250000
